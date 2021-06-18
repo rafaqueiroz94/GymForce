@@ -57,10 +57,5 @@ public class StudentsController {
         newClientRepository.deleteById(id);
     
     }
-//
-//     @PatchMapping ("/client/{id}")
-//      @ApiOperation(value = "change on and off")
-//      public NewClientEntity changeClientStats (@PathVariable (value = "id")long id, @PathVariable (value = "stats") boolean stats){
-//         return newClientRepository.salveStats(stats);
-//     }
+
 }
