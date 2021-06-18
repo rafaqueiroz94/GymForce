@@ -28,19 +28,19 @@ public class StudentsController {
         return newClientRepository.findAll();
     }
 
-    @GetMapping ("/clients/{id}")
+    @GetMapping ("/client/{id}")
     @ApiOperation(value = "Return ONE CLIENT")
     public NewClientEntity getClientFixed(@PathVariable(value = "id") long id){
         return newClientRepository.findById(id);
     }
 
-    @PostMapping ("/clients")
+    @PostMapping ("/client")
     @ApiOperation(value = "save a new customer")
     public NewClientEntity saveClient (@RequestBody NewClientEntity newClientEntity) {
         return newClientRepository.save(newClientEntity);
     }
 
-    @PutMapping ("/clients/{id}")
+    @PutMapping ("/client/{id}")
     @ApiOperation(value = "change a Stats")
     public ResponseEntity<NewClientEntity> changeClient (@PathVariable (value = "id")long id,
                                                         @Validated @RequestBody NewClientEntity newDetailsClient) {
@@ -49,25 +49,18 @@ public class StudentsController {
         final NewClientEntity changeClient = newClientRepository.save(newClientEntity);
         return ResponseEntity.ok(changeClient);
     }
-    @PutMapping ("/clients/{id}")
-    @ApiOperation(value = "change other data")
-    public ResponseEntity<NewClientEntity> changesClients (@PathVariable (value = "id")long id,
-                                                         @Validated @RequestBody NewClientEntity newDetailsClient) {
-        NewClientEntity newClientEntity = newClientRepository.findById(id);
-        newClientEntity.setBirthDay(newDetailsClient.getBirthDay());
-        newClientEntity.setName(newDetailsClient.getName());
-        newClientEntity.setCpf(newDetailsClient.getCpf());
-
-        final NewClientEntity changesClients = newClientRepository.save(newClientEntity);
-        return ResponseEntity.ok(changesClients);
-    }
 
 
-    @DeleteMapping (path = "/clients/{id}")
+    @DeleteMapping (path = "/client/{id}")
     @ApiOperation(value = "delete a customer")
     public void deleteClient (@PathVariable (value = "id")long id ) {
         newClientRepository.deleteById(id);
     
     }
-
+//
+//     @PatchMapping ("/client/{id}")
+//      @ApiOperation(value = "change on and off")
+//      public NewClientEntity changeClientStats (@PathVariable (value = "id")long id, @PathVariable (value = "stats") boolean stats){
+//         return newClientRepository.salveStats(stats);
+//     }
 }
