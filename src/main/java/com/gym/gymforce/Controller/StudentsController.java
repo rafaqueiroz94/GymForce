@@ -45,11 +45,13 @@ public class StudentsController {
     public ResponseEntity<NewClientEntity> changeClient (@PathVariable (value = "id")long id,
                                                         @Validated @RequestBody NewClientEntity newDetailsClient) {
         NewClientEntity newClientEntity = newClientRepository.findById(id);
+        newClientEntity.setCpf(newDetailsClient.getCpf());
+        newClientEntity.setName(newDetailsClient.getName());
+        newClientEntity.setBirthDay(newDetailsClient.getBirthDay());
         newClientEntity.setStats(newDetailsClient.getStats());
         final NewClientEntity changeClient = newClientRepository.save(newClientEntity);
         return ResponseEntity.ok(changeClient);
     }
-
 
     @DeleteMapping (path = "/client/{id}")
     @ApiOperation(value = "delete a customer")
