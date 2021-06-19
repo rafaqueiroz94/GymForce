@@ -21,6 +21,7 @@ public class StudentsController {
 
     @Autowired
     NewClientRepository newClientRepository;
+    private Object Boolean;
 
     @GetMapping ("/clients")
     @ApiOperation(value = "Returns a list of CLIENTS")
@@ -41,17 +42,27 @@ public class StudentsController {
     }
 
     @PutMapping ("/client/{id}")
-    @ApiOperation(value = "change a Stats")
+    @ApiOperation(value = "change DATA")
     public ResponseEntity<NewClientEntity> changeClient (@PathVariable (value = "id")long id,
                                                         @Validated @RequestBody NewClientEntity newDetailsClient) {
         NewClientEntity newClientEntity = newClientRepository.findById(id);
         newClientEntity.setCpf(newDetailsClient.getCpf());
         newClientEntity.setName(newDetailsClient.getName());
         newClientEntity.setBirthDay(newDetailsClient.getBirthDay());
-        newClientEntity.setStats(newDetailsClient.getStats());
+
         final NewClientEntity changeClient = newClientRepository.save(newClientEntity);
         return ResponseEntity.ok(changeClient);
     }
+
+    @PatchMapping (path = "client/{id}")
+    @ApiOperation(value = "Change of Stats")
+    public void changeStats(@PathVariable (value = "id") long id,boolean stats) {
+        NewClientEntity newClientEntity = newClientRepository.findById(id);
+                        newClientEntity.setStats(stats);
+        final NewClientEntity changeStats  = newClientRepository.save(newClientEntity);
+
+    }
+
 
     @DeleteMapping (path = "/client/{id}")
     @ApiOperation(value = "delete a customer")
